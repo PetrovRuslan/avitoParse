@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 #получаем страницу
 r = requests.get('https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40&p=1')
 
-base_url = 
+base_url = 'https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40'
 
 #делаем soup
 soup = BeautifulSoup(r.text, 'html.parser')
@@ -15,6 +15,10 @@ soup = BeautifulSoup(r.text, 'html.parser')
 total_pages = soup.find_all('span', {'class': 'pagination-item-1WyVp'})
 val_page = int(total_pages[-2].text)
 print(val_page)
+
+urls = [base_url.format(x) for x in range (1, val_page+1)]
+
+print(urls)
 
 #вычленяем список товаров
 item_list = soup.find_all('div', {'class': 'item_table-header'})
@@ -32,6 +36,3 @@ for i in item_list:
 	item_price = int(item_price[:-2])
 	print('Price: ' + str(item_price))
 	print('stoimost metra: ' + str(round(item_price / metr_house)))
-	#print(re.search('[0-9]', value_metr_item.text).group())
-
-#print(price_list[0])
