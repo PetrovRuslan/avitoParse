@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 #получаем страницу
 r = requests.get('https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40&p=1')
 
+base_url = 
+
 #делаем soup
 soup = BeautifulSoup(r.text, 'html.parser')
 
@@ -16,6 +18,7 @@ print(val_page)
 
 #вычленяем список товаров
 item_list = soup.find_all('div', {'class': 'item_table-header'})
+
 
 #price_list = soup.find_all('span', {'data-marker': 'item-price'})
 #вычленяем цену и метраж, после чего делим их друг на друга
