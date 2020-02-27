@@ -4,11 +4,14 @@ import requests, re
 from bs4 import BeautifulSoup
 
 #получаем страницу
+main_url = 'https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40'
 
 base_url = 'https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40&p={}'
 
 #делаем soup
 
+r = requests.get(main_url)
+soup = BeautifulSoup(r.text, 'html.parser')
 
 #получаем количество страниц
 total_pages = soup.find_all('span', {'class': 'pagination-item-1WyVp'})
