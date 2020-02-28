@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 #получаем страницу
 main_url = 'https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40'
 
-base_url = 'https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye?district=259&f=578_30b40&p={}'
+base_url = 'https://www.avito.ru/kaliningrad/kvartiry/prodam/1-komnatnye-ASgBAQICAUSSA8YQAUDKCBSAWQ?district=259&f=ASgBAQECAUSSA8YQAUDKCBSAWQFFhAkTeyJmcm9tIjozMCwidG8iOjQwfQ&p={}'
 
 #делаем soup
 
@@ -20,9 +20,11 @@ val_page = int(total_pages[-2].text)
 
 urls = [base_url.format(x) for x in range (1, val_page+1)]
 
-# print(urls)
+print(urls)
 
 #оформляем все в цикле
+schetchik = 0
+total_m_price = 0
 
 for j in urls:
 	r = requests.get(j)
@@ -40,3 +42,9 @@ for j in urls:
 		item_price = int(item_price[:-2])
 		print('Price: ' + str(item_price))
 		print('stoimost metra: ' + str(round(item_price / metr_house)))
+		total_m_price += round(item_price / metr_house)
+		schetchik += 1
+		print(schetchik)
+		print('----------------------------------------')
+	print('************************************')
+print('Средняя стоимость квадратного метра: ' + str(total_m_price / schetchik))
